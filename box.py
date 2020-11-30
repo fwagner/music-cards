@@ -10,14 +10,14 @@ import sys
 def connectMPD():
 	try:
 		client = MPDClient()               # create client object
-		client.timeout = 200               # network timeout in seconds (floats allowed), default: None
+		client.timeout = 10               # network timeout in seconds (floats allowed), default: None
 		client.idletimeout = None  
-		print "Connecting..."
+		print("Connecting...")
 		client.connect("localhost", 6600) 
-		print "Connected!"
+		print("Connected!")
 		return client
 	except:
-		print 'Could not connect to MPD server'
+		print('Could not connect to MPD server')
 
 def play(client, plist):
 	try:
@@ -28,19 +28,19 @@ def play(client, plist):
 			client.shuffle()
 		client.play()
 	except:
-		print 'Could not play playlist %s' % plist 
+		print('Could not play playlist %s' % plist) 
 
 reader = Reader()
 cardList = CardList()
 
-print 'Ready: place a card on top of the reader'
+print('Ready: place a card on top of the reader')
 
 while True:
 	try:
 		card = reader.readCard()
-		print 'Read card', card
+		print('Read card', card)
 		plist = cardList.getPlaylist(card)
-		print 'Playlist', plist
+		print('Playlist', plist)
 		if plist != '':
 			client = connectMPD()
 			if plist=='pause':
